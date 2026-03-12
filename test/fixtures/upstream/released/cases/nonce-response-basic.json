@@ -1,0 +1,15 @@
+{
+  "id": "nonce-response-basic",
+  "operation": "nonce_response",
+  "input": {
+    "c_nonce": "nonce_123",
+    "c_nonce_expires_in": 300
+  },
+  "oracle": {
+    "ok": true,
+    "result": {
+      "c_nonce": "nonce_123",
+      "c_nonce_expires_in": 300
+    }
+  }
+}

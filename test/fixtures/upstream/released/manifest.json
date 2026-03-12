@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "advisory": false,
+  "channel": "released",
+  "generatedAt": "2026-03-11T17:28:21.688Z",
+  "oracle": {
+    "package": "@openid4vc/openid4vci",
+    "version": "0.4.5"
+  },
+  "cases": [
+    {
+      "id": "credential-offer-pre-authorized",
+      "operation": "credential_offer",
+      "file": "credential-offer-pre-authorized.json"
+    },
+    {
+      "id": "credential-offer-authorization-code",
+      "operation": "credential_offer",
+      "file": "credential-offer-authorization-code.json"
+    },
+    {
+      "id": "credential-offer-both-grants-with-auth-server",
+      "operation": "credential_offer",
+      "file": "credential-offer-both-grants-with-auth-server.json"
+    },
+    {
+      "id": "nonce-response-basic",
+      "operation": "nonce_response",
+      "file": "nonce-response-basic.json"
+    },
+    {
+      "id": "credential-response-basic",
+      "operation": "credential_response",
+      "file": "credential-response-basic.json"
+    },
+    {
+      "id": "parse-credential-request-basic",
+      "operation": "parse_credential_request",
+      "file": "parse-credential-request-basic.json"
+    },
+    {
+      "id": "parse-credential-request-with-encryption",
+      "operation": "parse_credential_request",
+      "file": "parse-credential-request-with-encryption.json"
+    },
+    {
+      "id": "deferred-credential-response-pending",
+      "operation": "deferred_credential_response",
+      "file": "deferred-credential-response-pending.json"
+    },
+    {
+      "id": "deferred-credential-response-issued",
+      "operation": "deferred_credential_response",
+      "file": "deferred-credential-response-issued.json"
+    },
+    {
+      "id": "parse-deferred-credential-request-basic",
+      "operation": "parse_deferred_credential_request",
+      "file": "parse-deferred-credential-request-basic.json"
+    },
+    {
+      "id": "parse-deferred-credential-request-with-encryption",
+      "operation": "parse_deferred_credential_request",
+      "file": "parse-deferred-credential-request-with-encryption.json"
+    }
+  ]
+}

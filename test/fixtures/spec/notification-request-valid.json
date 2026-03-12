@@ -1,0 +1,5 @@
+{
+  "notification_id": "notification_123",
+  "event": "credential_accepted",
+  "event_description": "Credential was accepted by the wallet."
+}

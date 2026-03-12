@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "notification-request-valid",
+      "operation": "notification_request",
+      "file": "notification-request-valid.json"
+    },
+    {
+      "id": "notification-error-valid",
+      "operation": "notification_error_response",
+      "file": "notification-error-valid.json"
+    },
+    {
+      "id": "proof-validation-cases",
+      "operation": "proof_validation_cases",
+      "file": "proof-validation-cases.json"
+    }
+  ]
+}

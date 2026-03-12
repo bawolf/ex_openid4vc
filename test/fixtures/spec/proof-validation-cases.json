@@ -1,0 +1,97 @@
+{
+  "cases": [
+    {
+      "id": "valid-basic",
+      "expected": "ok"
+    },
+    {
+      "id": "wrong-audience",
+      "claim_overrides": {
+        "aud": "https://issuer.delegate.local"
+      },
+      "expected": "invalid_proof_audience"
+    },
+    {
+      "id": "wrong-nonce",
+      "claim_overrides": {
+        "nonce": "nonce_456"
+      },
+      "expected": "invalid_proof_nonce"
+    },
+    {
+      "id": "future-iat",
+      "claim_overrides": {
+        "iat_offset_seconds": 30
+      },
+      "expected": "invalid_proof_iat"
+    },
+    {
+      "id": "stale-iat",
+      "claim_overrides": {
+        "iat_offset_seconds": -301
+      },
+      "expected": "invalid_proof_iat"
+    },
+    {
+      "id": "unsupported-alg",
+      "header_overrides": {
+        "alg": "RS256"
+      },
+      "expected": "unsupported_proof_alg"
+    },
+    {
+      "id": "missing-key-material",
+      "header_overrides": {
+        "jwk": null
+      },
+      "expected": "missing_proof_key"
+    },
+    {
+      "id": "missing-typ",
+      "header_overrides": {
+        "typ": null
+      },
+      "expected": "invalid_proof_typ"
+    },
+    {
+      "id": "malformed-proof-jwt",
+      "raw_jwt": "not-a-jwt",
+      "expected": "invalid_proof_jwt"
+    },
+    {
+      "id": "holder-did-jwk-match",
+      "holder_binding": "did_jwk_match",
+      "expected": "ok"
+    },
+    {
+      "id": "holder-did-jwk-mismatch",
+      "holder_binding": "did_jwk_mismatch",
+      "expected": "holder_binding_mismatch"
+    },
+    {
+      "id": "holder-did-key-match",
+      "holder_binding": "did_key_match",
+      "expected": "ok"
+    },
+    {
+      "id": "holder-did-key-mismatch",
+      "holder_binding": "did_key_mismatch",
+      "expected": "holder_binding_mismatch"
+    },
+    {
+      "id": "holder-did-web-match",
+      "holder_binding": "did_web_match",
+      "expected": "ok"
+    },
+    {
+      "id": "holder-did-web-mismatch",
+      "holder_binding": "did_web_mismatch",
+      "expected": "holder_binding_mismatch"
+    },
+    {
+      "id": "holder-did-unsupported",
+      "holder_binding": "unsupported_holder",
+      "expected": "invalid_holder_did"
+    }
+  ]
+}

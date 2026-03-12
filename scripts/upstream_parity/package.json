@@ -1,0 +1,13 @@
+{
+  "name": "ex-openid4vc-upstream-parity",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.18.3",
+  "description": "Maintainer-only recorder for ex_openid4vc upstream JS parity fixtures.",
+  "scripts": {
+    "record:released": "node record.js released"
+  },
+  "dependencies": {
+    "@openid4vc/openid4vci": "0.4.5"
+  }
+}
