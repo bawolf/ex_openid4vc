@@ -55,7 +55,7 @@ defmodule ExOpenid4vc.MixProject do
     if System.get_env("EX_OPENID4VC_USE_LOCAL_DEPS") == "1" do
       {:ex_did, path: "../ex_did"}
     else
-      {:ex_did, "~> 0.2.0"}
+      {:ex_did, "~> 0.1.2"}
     end
   end
 

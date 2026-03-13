@@ -1,5 +1,27 @@
 # ExOpenid4vc
 
+Quick links: [Hex package](https://hex.pm/packages/ex_openid4vc) | [Hex docs](https://hexdocs.pm/ex_openid4vc) | [Parity matrix](https://github.com/bawolf/ex_openid4vc/blob/main/PARITY_MATRIX.md) | [Interop notes](https://github.com/bawolf/ex_openid4vc/blob/main/INTEROP_NOTES.md) | [Fixture policy](https://github.com/bawolf/ex_openid4vc/blob/main/FIXTURE_POLICY.md)
+
+## What Standard Is This?
+
+[OpenID for Verifiable Credential Issuance](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html)
+and [OpenID for Verifiable Presentations](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html)
+define how apps, wallets, issuers, and verifiers exchange credentials over
+normal web and mobile protocols.
+
+In plain terms: if `ex_vc` is about what a credential is, `ex_openid4vc` is
+about how that credential gets offered, requested, and delivered between
+systems.
+
+## Why You Might Use It
+
+Use `ex_openid4vc` when you need to:
+
+- publish issuer metadata and credential offers
+- parse credential request envelopes from wallets
+- validate proof claims on incoming issuance requests
+- keep OpenID4VC protocol concerns separate from VC and DID internals
+
 `ExOpenid4vc` provides an Elixir-native boundary for the OpenID4VCI metadata and offer
 objects Delegate will need as the issuance surface becomes more standards-complete.
 
@@ -160,13 +182,13 @@ network access. The committed fixtures are the contract.
 Run the package release gate locally with:
 
 ```bash
-mix release.gate
+mix ex_openid4vc.release.gate
 ```
 
 Maintainers should include the live oracle checks before cutting a release:
 
 ```bash
-EX_OPENID4VC_LIVE_ORACLE=1 mix release.gate --include-live-oracle
+EX_OPENID4VC_LIVE_ORACLE=1 mix ex_openid4vc.release.gate --include-live-oracle
 ```
 
 ## Open Source Notes
@@ -180,22 +202,36 @@ EX_OPENID4VC_LIVE_ORACLE=1 mix release.gate --include-live-oracle
 
 ## Maintainer Workflow
 
-`ex_openid4vc` currently lives in the `delegate` monorepo and is mirrored into
-the standalone `ex_openid4vc` repository for publishing and external
-consumption.
+`ex_openid4vc` is developed in the `delegate` monorepo. The public
+`github.com/bawolf/ex_openid4vc` repository is the mirrored OSS surface for
+issues, discussions, releases, and Hex publishing.
+
+The monorepo copy is authoritative for:
+
+- code
+- tests and fixtures
+- docs
+- GitHub workflows
+- release tooling
+
+Direct standalone-repo edits are temporary hotfixes only and must be
+backported to the monorepo immediately.
 
 The intended workflow is:
 
 1. make library changes in `libs/ex_openid4vc`
-2. run `mix release.gate`
-3. run `EX_OPENID4VC_LIVE_ORACLE=1 mix release.gate --include-live-oracle`
-4. sync the package into a clean checkout of `github.com/bawolf/ex_openid4vc`
-5. review and push from the standalone repo
-6. trigger the standalone publish workflow with the release version
+2. run `scripts/release_preflight.sh`
+3. run `EX_OPENID4VC_LIVE_ORACLE=1 mix ex_openid4vc.release.gate --include-live-oracle` before a release when the live oracle corpus is part of the current contract
+4. publish the corresponding `ex_did` dependency release first when `ex_openid4vc` depends on a newer `ex_did` version
+5. sync the package into a clean checkout of `github.com/bawolf/ex_openid4vc`
+6. verify the mirrored required file set with `scripts/verify_standalone_repo.sh`
+7. review and push from the standalone repo
+8. trigger the standalone publish workflow with the release version
 
-A helper script for the sync step lives at `scripts/sync_standalone_repo.sh`.
+A helper to sync all public package repos from the monorepo lives at
+`/Users/bryantwolf/workspace/delegate/scripts/sync_public_libs.sh`.
 
-The standalone repository also carries GitHub Actions workflows for:
+The mirrored standalone repository carries GitHub Actions workflows for:
 
 - CI on push and pull request
 - manual publish through `workflow_dispatch`
@@ -203,3 +239,25 @@ The standalone repository also carries GitHub Actions workflows for:
 The publish workflow expects a `HEX_API_KEY` repository secret in the standalone
 `ex_openid4vc` repository. Once triggered, it publishes to Hex and then creates
 the matching Git tag and GitHub release automatically.
+
+## Releasing From GitHub
+
+Releases are cut from the public `github.com/bawolf/ex_openid4vc` repository,
+not from the private monorepo checkout.
+
+The shortest safe path is:
+
+1. finish the change in `libs/ex_openid4vc`
+2. run `scripts/release_preflight.sh`
+3. if the current contract requires it, run `EX_OPENID4VC_LIVE_ORACLE=1 mix ex_openid4vc.release.gate --include-live-oracle`
+4. if `mix.exs` points at a newer `ex_did`, publish `ex_did` first
+5. sync and verify the standalone repo with `scripts/sync_standalone_repo.sh` and `scripts/verify_standalone_repo.sh`
+6. push the mirrored release commit to `main` in `github.com/bawolf/ex_openid4vc`
+7. in GitHub, go to `Actions`, choose `Publish`, and run it with the version from `mix.exs`
+
+The GitHub workflow is responsible for:
+
+- rerunning the release gate
+- publishing to Hex
+- creating the matching git tag
+- creating the matching GitHub release

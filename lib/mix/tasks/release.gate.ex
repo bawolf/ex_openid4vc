@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Release.Gate do
+defmodule Mix.Tasks.ExOpenid4vc.Release.Gate do
   use Mix.Task
 
   @shortdoc "Runs the ex_openid4vc release gate checks"

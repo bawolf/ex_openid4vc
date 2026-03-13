@@ -1,0 +1,25 @@
+name: Feature request
+description: Propose a new ex_openid4vc capability or ergonomics improvement
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or goal
+      description: What are you trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the API, behavior, or docs change you want.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Standards or ecosystem references
+      description: Link relevant OpenID4VC, `oid4vc-ts`, or `ssi` references.

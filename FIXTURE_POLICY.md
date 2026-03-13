@@ -15,8 +15,8 @@ updated.
 
 The package release gate should treat the released corpus as mandatory:
 
-- `mix release.gate` must pass against committed fixtures alone
-- `EX_OPENID4VC_LIVE_ORACLE=1 mix release.gate --include-live-oracle` is the
+- `mix ex_openid4vc.release.gate` must pass against committed fixtures alone
+- `EX_OPENID4VC_LIVE_ORACLE=1 mix ex_openid4vc.release.gate --include-live-oracle` is the
   maintainer pre-release check before refreshing or publishing
 
 ## Runtime Boundary

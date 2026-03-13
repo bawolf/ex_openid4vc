@@ -632,7 +632,7 @@ defmodule ExOpenid4vc do
     case ExDid.resolve(holder_did, did_resolver_opts(opts)) do
       %{did_document: %{} = document} ->
         document
-        |> verification_method_jwks()
+        |> ExDid.verification_method_jwks()
         |> List.first()
         |> case do
           %{} = jwk -> normalize_jwk(jwk)
@@ -641,45 +641,6 @@ defmodule ExOpenid4vc do
 
       _ ->
         {:error, :invalid_holder_did}
-    end
-  end
-
-  defp verification_method_jwks(document) when is_map(document) do
-    cond do
-      function_exported?(ExDid, :verification_method_jwks, 1) ->
-        ExDid.verification_method_jwks(document)
-
-      Code.ensure_loaded?(ExDid.Document) and
-          function_exported?(ExDid.Document, :verification_method_jwks, 1) ->
-        ExDid.Document.verification_method_jwks(document)
-
-      true ->
-        document
-        |> ExDid.verification_methods()
-        |> Enum.flat_map(fn
-          %{"publicKeyJwk" => %{} = jwk} ->
-            [jwk]
-
-          %{"publicKeyMultibase" => multibase} when is_binary(multibase) ->
-            normalize_multikey_jwk(multibase)
-
-          _ ->
-            []
-        end)
-    end
-  end
-
-  defp normalize_multikey_jwk(multibase) do
-    cond do
-      Code.ensure_loaded?(ExDid.KeyMulticodec) and
-          function_exported?(ExDid.KeyMulticodec, :public_jwk, 1) ->
-        case ExDid.KeyMulticodec.public_jwk(multibase) do
-          {:ok, jwk} -> [jwk]
-          {:error, _reason} -> []
-        end
-
-      true ->
-        []
     end
   end
 

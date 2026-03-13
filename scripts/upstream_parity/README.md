@@ -21,8 +21,8 @@ pnpm run record:released
 After refreshing fixtures, rerun the package release gate from the library root:
 
 ```bash
-mix release.gate
-EX_OPENID4VC_LIVE_ORACLE=1 mix release.gate --include-live-oracle
+mix ex_openid4vc.release.gate
+EX_OPENID4VC_LIVE_ORACLE=1 mix ex_openid4vc.release.gate --include-live-oracle
 ```
 
 Normal `mix test` and normal `ex_openid4vc` usage do not require Node, pnpm,

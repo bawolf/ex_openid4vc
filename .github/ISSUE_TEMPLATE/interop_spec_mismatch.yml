@@ -1,0 +1,36 @@
+name: Interop or spec mismatch
+description: Report a mismatch between ex_openid4vc and protocol or ecosystem behavior
+title: "[Interop] "
+labels:
+  - interop
+body:
+  - type: dropdown
+    id: source
+    attributes:
+      label: Mismatch source
+      options:
+        - OpenID4VCI or OpenID4VP spec text
+        - oid4vc-ts
+        - Rust or JOSE ecosystem behavior
+        - Multiple sources disagree
+    validations:
+      required: true
+  - type: textarea
+    id: surface
+    attributes:
+      label: Affected surface
+      description: Protocol envelope, nonce/proof handling, metadata, or request parsing.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Include fixture ids, links, and observed outputs.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected contract
+      description: Which oracle should win, and why?
